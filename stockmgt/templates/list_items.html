@@ -1,0 +1,116 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!-- Bootstrap UI -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>{{header}}</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+    <!-- Bootstrap core CSS -->
+    <!-- Modified using our css link -->
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<!--<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">-->
+<link href="{% static 'css/tablestyle.css' %}" rel="stylesheet">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <!-- HERE WE INCLUDE NAV BAR AS ITS OWN TEMPLATE I'll do this on home and list items page but not add_items page -->
+    
+    {% include 'navbar.html' %}
+
+<main role="main" class="container">
+
+	<!--ADD CUSTOM SUCCESS MESSAGE-->
+	{% if messages %}
+			<ul class="messages">
+				{% for message in messages %}
+						<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				{% endfor %}
+			</ul>
+	{% endif %}
+	
+  <div class="jumbotron">
+    <div class="header">{{header}}</div>
+    <!-- FOR THE NICE LOOK OF THE LIST, WE HAVE TO CREATE A TABLE OF ITEMS WITH CODES BELOW
+	{% for instance in queryset %}
+	{{instance.category}},{{instance.item_name}},{{instance.quuantity}}<br>
+	{% endfor %} -->
+
+	<!-- CREATE SEARCH FIELDS -->
+	<div class="search_field">
+		<form method="POST" action=''>{% csrf_token %}
+			{{form|crispy}}
+			<input type="submit" value="Search">
+		</form>
+	</div>
+
+	<!-- <div> ELEMENT TO STYLE TABLE CONTAINER -->
+	 <div class="display_table">
+	  <table class="table">
+	  	<thead>
+	  		<tr>
+	  			<th>COUNT</th>
+	  			<th>CATEGORY</th>
+	  			<th>ITEM NAME</th>
+	  			<th>QUANTITY IN STORE</th>
+	  			<th>RE-ORDER LEVEL</th>
+	  			<th>CREATED ON</th>
+	  			<th>MODIFIED ON</th>
+	  			<th>DELETE</th>
+	  		</tr>
+	  	</thead>
+	  	{% for instance in queryset %}
+	  		<tr>
+	  			<td>{{forloop.counter}}</td>
+	  			<td>{{instance.category}}</td>
+	  			<td><a href="{% url 'update_items' instance.id %}">{{instance.item_name}}</a></td>
+	  			<td>
+	  				{% if instance.quuantity <= instance.reorder_level %}
+	  				<div style="background-color: orange;">
+	  					<a href="{% url 'stock_details' instance.id %}">{{instance.quuantity}}</a>
+	  				</div>
+	  				{% else %}
+	  					<a href="{% url 'stock_details' instance.id %}">{{instance.quuantity}}</a>
+	  				{% endif %}
+	  			</td>
+	  			<td><a href="{% url 'reorder_level' instance.id %}">{{instance.reorder_level}}</a></td>
+	  			<td>{{instance.timestamp}}</td>
+	  			<td>{{instance.last_updated}}</td>
+	  			<td><a href="{% url 'delete_items' instance.id %}"><img src="{% static 'img/del.png' %}"></a></td>
+	  		</tr>
+	  	{% endfor %}
+	  </table>
+	 </div> 
+  </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script></body>
+</html>

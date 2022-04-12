@@ -1,0 +1,23 @@
+body {
+  background-color: green;
+}
+
+/*Align the titles to the center of the page*/
+.table{
+  font-size: 13px;
+  text-align: center;
+  width: 95%;
+  margin: auto;
+}
+
+/* Make altenating colors for the table rows */
+.table tr:nth-child(odd){
+  background: #88CAE4;
+}
+.table tr:nth-child(even){
+  background: #dae5f4;
+}
+th{
+  background-color: #337ab7;
+  color: white;
+}

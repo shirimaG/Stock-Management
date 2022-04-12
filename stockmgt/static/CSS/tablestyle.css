@@ -1,0 +1,53 @@
+
+/*Align the titles to the center of the page*/
+.table{
+  font-size: 13px;
+  text-align: center;
+  width: 95%;
+  margin: auto;
+}
+
+/* Make altenating colors for the table rows */
+.table tr:nth-child(odd){
+  background: #88CAE4;
+}
+.table tr:nth-child(even){
+  background: #dae5f4;
+}
+th{
+  background-color: #337ab7;
+  color: white;
+}
+
+.display_table{
+  border-bottom-right-radius: 20px;
+  padding-right: 1px;
+  padding-left: 1px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  box-shadow: 12px 12px 20px 6px #2e6da4;
+}
+
+.header{
+  font-family: helvetica;
+  color: #337ab7;
+  font-size: 50px;
+  text-align: center;
+  width: 100%;
+  text-shadow: 6px 6px 6px #c9c6c6;
+  display: block;
+  font-weight: bolder;
+}
+
+.search_field{
+  padding-bottom: 20px;
+  color: green;
+}
+
+.success{
+  list-style: none;
+  background-color: #2e6da4;
+  color: white;
+  box-shadow: 12px 12px 12px #e61c66;
+  text-align: center;
+}
